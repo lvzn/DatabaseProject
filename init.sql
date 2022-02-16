@@ -59,6 +59,7 @@ CREATE TABLE User_games(
     purchase_date VARCHAR(20) NOT NULL,
     last_played VARCHAR(20) NOT NULL,
     launched BOOLEAN NOT NULL,
+    hours_played INT,
     FOREIGN KEY (FK_user_id) REFERENCES User (id),
     FOREIGN KEY (FK_game_id) REFERENCES Game (game_id)
 );
@@ -107,6 +108,15 @@ insert into Game (game_name, game_dev, game_pub, game_comp, FK_dev_id, FK_pub_id
 ("Sekiro: Shadows Die Twice", "FromSoftware", "Activision", "Motoi Sakuraba", 7, 4, 2),
 ("Cyberpunk 2077", "CD PROJEKT RED", NULL, NULL, 8, NULL, NULL);
 
-
+insert into User_games (FK_user_id, FK_game_id, purchase_date, last_played, launched, hours_played) values
+(1, 3, "3/11/2020", "1/1/2022", true, 205),
+(1, 6, "24/12/2019", "31/8/2020", true, 120),
+(1, 8, "1/1/2021", "2/1/2021", true, 3),
+(1, 1, "24/2/2012", null, false, 0),
+(2, 2, "2/2/2011", "15/2/2022", true, 2435),
+(2, 8, "2/1/2021", null, false, 0),
+(3, 4, "2/11/2019", "3/12/2021", true, 340),
+(3, 5, "25/7/2016", "14/2/2022", true, 727),
+(3, 7, "3/6/2020", "15/8/2020", true, 61);
 
 select * from Developer;
