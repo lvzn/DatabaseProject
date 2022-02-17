@@ -54,10 +54,10 @@ CREATE TABLE Game(
 drop table if exists User_games;
 
 CREATE TABLE User_games(
-    FK_user_id INTEGER PRIMARY KEY,
+    FK_user_id INTEGER NOT NULL,
     FK_game_id INTEGER NOT NULL,    
     purchase_date VARCHAR(20) NOT NULL,
-    last_played VARCHAR(20) NOT NULL,
+    last_played VARCHAR(20),
     launched BOOLEAN NOT NULL,
     hours_played INT,
     FOREIGN KEY (FK_user_id) REFERENCES User (id),

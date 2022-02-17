@@ -15,28 +15,68 @@ def query(conn):
             break
         elif userChoice == 1:
             devName = input("Name of the developer: ")
+            devName = f"%{devName}%"
             cur = conn.cursor()
             cur.execute("SELECT * FROM Game WHERE game_dev LIKE (?)", (devName,))
             games = cur.fetchall()
+            print("\nList of games found:")
             for game in games:
-                print(game) #todo print only game name
+                print(game["game_name"])
+            print()
         elif userChoice == 2:
             pubName = input("Name of the publisher: ")
+            pubName = f"%{pubName}%"
             cur = conn.cursor()
             cur.execute("SELECT * FROM Game WHERE game_pub LIKE (?)", (pubName,))
             games = cur.fetchall()
+            print("\nList of games found:")
             for game in games:
-                print(game)
+                print(game["game_name"])
+            print()
         elif userChoice == 3:
-            compName = input("Name of the developer: ")
+            compName = input("Name of the composer: ")
+            compName = f"%{compName}%"
             cur = conn.cursor()
-            cur.execute("SELECT * FROM Game WHERE game_comp LIKE (?)", (devName,))
+            cur.execute("SELECT * FROM Game WHERE game_comp LIKE (?)", (compName,))
             games = cur.fetchall()
+            print("\nList of games found:")
             for game in games:
-                print(game)
+                print(game["game_name"])
+            print()
+        elif userChoice == 4:
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM User")
+            users = cur.fetchall()
+            print("Whose games would you like to view?")
+            for user in users:
+                print(f"{user['id']}) {user['username']}")
+            userID = int(input("User: "))
+            cur = conn.cursor()
+
+            script = """
+            SELECT DISTINCT Game.game_name FROM ((Game
+            inner join User_games ON User_games.FK_game_id=Game.game_id)
+            inner join User ON User_games.FK_user_id=?);
+            """
+
+            cur.execute(script, (userID,))
+            games = cur.fetchall()
+            print()
+            for game in games:
+                print(game['game_name'])
+            print()
+
 
 
 def insert(conn):
+    print("Registration")
+    login = input("Enter your email: ")
+    passwd = input("Enter your password: ")
+    cur = conn.cursor()
+    cur.execute("INSERT INTO LoginT (login_name, login_password) values (?,?)", (login, passwd))
+    username = input("Choose username: ")
+    cur.execute("INSERT INTO User (username) values (?)", (username,))
+    conn.commit()
     pass
 
 def update(conn):
@@ -45,6 +85,7 @@ def update(conn):
 
 def menu():
     conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
     while True:
         print("\nGameDB interface\n"+
         "What would you like to do?\n"+
