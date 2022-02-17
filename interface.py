@@ -1,6 +1,5 @@
 from os import devnull
 import sqlite3
-import bokeh
 from bokeh.plotting import figure, output_file, show
 
 def query(conn, id):
@@ -155,5 +154,4 @@ def menu():
         else:
             print("Incorrect input. Try again.")
             
-
 menu()

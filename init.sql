@@ -105,6 +105,7 @@ insert into Game (game_name, game_dev, game_pub, game_comp, FK_dev_id, FK_pub_id
 ("Dead by Daylight", "Behaviour Interactive Inc.", NULL, NULL, 4, NULL, NULL),
 ("Tom Clancy's Rainbow Six Siege", "Ubisoft", NULL, NULL, 5, NULL, NULL),
 ("Yakuza 0", "SEGA", NULL, "Hidenori Shoji", 6, NULL, 1),
+("Yakuza Kiwami", "SEGA", NULL, "Hidenori Shoji", 6, null, 1),
 ("Sekiro: Shadows Die Twice", "FromSoftware", "Activision", "Motoi Sakuraba", 7, 4, 2),
 ("Cyberpunk 2077", "CD PROJEKT RED", NULL, NULL, 8, NULL, NULL);
 
@@ -120,3 +121,5 @@ insert into User_games (FK_user_id, FK_game_id, purchase_date, last_played, laun
 (3, 7, "3/6/2020", "15/8/2020", true, 61);
 
 select * from Developer;
+
+CREATE INDEX ugindex ON User_games(FK_user_id, FK_game_id);
