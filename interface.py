@@ -11,7 +11,7 @@ def query(conn, id):
         "4) Show all your games\n"+
         "5) Calculate total played hours\n"+
         "6) Generate a chart\n"+
-        "0) fuck go back")
+        "0) frick go back")
         userChoice = int(input("Your choice: "))
         if userChoice == 0:
             break
